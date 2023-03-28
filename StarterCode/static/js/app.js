@@ -262,15 +262,22 @@ function buildPieChart(sample){
           type: "pie"
         }
       ];
-      init();
+
     // Set up the layout
     let layout = { width: 500000, height: 400, margin: { t: 0, b: 0 } };
+//Troubleshoot
+
+    //if (!document.getElementById("pie")) {
+       // console.error("No element with id 'pie' found in the DOM");
+       // return;
+      //}
+      
       
     // Call Plotly to plot the gauge chart
     Plotly.newPlot("pie", trace, layout);
   });
 }  
-
+init();
 // Function that updates dashboard when sample is changed
 function optionChanged(value) { 
 

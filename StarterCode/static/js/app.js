@@ -1,12 +1,12 @@
-// Place url in a constant variable
+// Assign the url to a constant variable
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json"
 
-// Fetch the JSON data and console log it
+// Use D3 library to read the JSON file from the URL
 d3.json(url).then(function(data) {
   console.log(data);
 });
 
-// Initialize the dashboard at start up 
+// Initialize the dashboard  
 function init() {
 
     // Use D3 to select the dropdown menu
@@ -21,7 +21,7 @@ function init() {
         // Add  samples to dropdown menu
         names.forEach((id) => {
 
-            // Log the value of id for each iteration of the loop
+            // print the value of the variables during the entire loop
             console.log(id);
 
             dropdownMenu.append("option")
@@ -32,7 +32,7 @@ function init() {
         // Set the first sample from the list
         let sample_one = names[0];
 
-        // Log the value of sample_one
+        // Print the value of sample_one
         console.log(sample_one);
 
         // Build the initial plots
@@ -40,14 +40,14 @@ function init() {
         buildBarChart(sample_one);
         buildBubbleChart(sample_one);
         buildGaugeChart(sample_one);
-        buildPieChart(sample_one);
+        //buildPieChart(sample_one);
     });
 };
 
-// Function that populates metadata info
+// Function to populate metadata info
 function buildMetadata(sample) {
 
-    // Use D3 to retrieve all of the data
+    // Use D3 to retrieve all data
     d3.json(url).then((data) => {
 
         // Retrieve all metadata
@@ -56,19 +56,19 @@ function buildMetadata(sample) {
         // Filter based on the value of the sample
         let value = metadata.filter(result => result.id == sample);
 
-        // Log the array of metadata objects after the have been filtered
+        // Print the array of metadata objects
         console.log(value)
 
         // Get the first index from the array
         let valueData = value[0];
 
-        // Clear out metadata
+        // Clear metadata content to make it ready for user input
         d3.select("#sample-metadata").html("");
 
         // Use Object.entries to add each key/value pair to the panel
         Object.entries(valueData).forEach(([key,value]) => {
 
-            // Log the individual key/value pairs as they are being appended to the metadata panel
+            // Print the individual key/value pairs as they are being appended to the metadata panel
             console.log(key,value);
 
             d3.select("#sample-metadata").append("h5").text(`${key}: ${value}`);
@@ -77,7 +77,7 @@ function buildMetadata(sample) {
 
 };
 
-// Function that builds the bar chart
+// Function to populate the bar chart
 function buildBarChart(sample) {
 
     // Use D3 to retrieve all of the data
@@ -130,7 +130,7 @@ function buildBarChart(sample) {
     });
 };
 
-// Function that builds the bubble chart
+// Function to populate the bubble chart
 function buildBubbleChart(sample) {
 
     // Use D3 to retrieve all of the data
@@ -178,15 +178,15 @@ function buildBubbleChart(sample) {
     });
 };
 
-//Function that builds the Gauge Chart
+//Function to populate the Gauge Chart
 function buildGaugeChart(sample) {
     // Use D3 to retrieve all of the data
     d3.json(url).then((data) => {
       
-      // Retrieve all metadata
+      //Assiging metadata to a variable
       let metadata = data.metadata;
       
-      // Filter based on the value of the sample
+      // Filter based on values of the sample
       let resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
       
       // Get the first index from the array
@@ -231,40 +231,40 @@ function buildGaugeChart(sample) {
   
 
 //Function that builds the Pie Chart
-function buildPieChart(sample){
+//function buildPieChart(sample){
     // Use D3 to retrieve all of the data
-    d3.json(url).then((data) => {
+  //  d3.json(url).then((data) => {
       
       // Retrieve all sample data
-      let sampleInfo = data.samples;
+     // let sampleInfo = data.samples;
       
       // Filter based on the value of the sample
-      let resultArray = sampleInfo.filter(sampleObj => sampleObj.id == sample);
+     // let resultArray = sampleInfo.filter(sampleObj => sampleObj.id == sample);
       
       // Get the first index from the array
-      let result = resultArray[0];
+     // let result = resultArray[0];
       
       // Get the otu_ids, lables, and sample values
-      let otu_ids = result.otu_ids;
-      let otu_labels = result.otu_labels;
-      let sample_values = result.sample_values;
+     // let otu_ids = result.otu_ids;
+     // let otu_labels = result.otu_labels;
+     // let sample_values = result.sample_values;
       
       // Log the data to the console
-      console.log(otu_ids, otu_labels, sample_values);
+      //console.log(otu_ids, otu_labels, sample_values);
       
       // Set up the trace for the pie chart
-      let trace = [
-        {
-          values: sample_values.slice(0, 10),
-          labels: otu_ids.slice(0, 10),
-          hovertext: otu_labels.slice(0, 10),
-          hoverinfo: "hovertext",
-          type: "pie"
-        }
-      ];
+     // let trace = [
+      //  {
+        //  values: sample_values.slice(0, 05),
+       //   labels: otu_ids.slice(0, 05),
+        //  hovertext: otu_labels.slice(0, 05),
+       //   hoverinfo: "hovertext",
+      //    type: "pie"
+       // }
+      //];
 
     // Set up the layout
-    let layout = { width: 500000, height: 400, margin: { t: 0, b: 0 } };
+    //let layout = { width: 500000, height: 400, margin: { t: 0, b: 0 } };
 //Troubleshoot
 
     //if (!document.getElementById("pie")) {
@@ -274,10 +274,10 @@ function buildPieChart(sample){
       
       
     // Call Plotly to plot the gauge chart
-    Plotly.newPlot("pie", trace, layout);
-  });
-}  
-init();
+    //Plotly.newPlot("pie", trace, layout);
+  //});
+//}  
+//init();
 // Function that updates dashboard when sample is changed
 function optionChanged(value) { 
 
@@ -289,8 +289,8 @@ function optionChanged(value) {
     buildBarChart(value);
     buildBubbleChart(value);
     buildGaugeChart(value);
-    buildPieChart(value);
+    //buildPieChart(value);
 };
 
-// Call the initialize function
+// Initialize function
 init();
